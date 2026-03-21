@@ -13,7 +13,7 @@ const Login = ({ onLoginSuccess }) => {
         setIsLoading(true);
 
         try {
-            axios.post('https://hrm-backend-iybp.onrender.com/api/login',  {
+            const response = await axios.post('https://hrm-backend-iybp.onrender.com/api/login', {
                 email: email,
                 password: password
             });
@@ -34,36 +34,16 @@ const Login = ({ onLoginSuccess }) => {
         }
     };
 
-    // --- STYLES: MINIMALIST CENTERED ---
+    //  STYLES
     const styles = {
         container: {
-            minHeight: '100vh',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: '#f3f4f6', // Màu nền xám nhạt rất dịu mắt (Gray-100)
-            fontFamily: "'Inter', 'Segoe UI', sans-serif",
-            padding: '20px',
+            minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#f3f4f6', fontFamily: "'Inter', 'Segoe UI', sans-serif", padding: '20px',
         },
         card: {
-            background: 'white',
-            width: '100%',
-            maxWidth: '420px', // Độ rộng vừa phải
-            padding: '40px',
-            borderRadius: '16px', // Bo góc mềm mại
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)', // Bóng đổ nhẹ nhàng
-            textAlign: 'center', // Căn giữa nội dung
+            background: 'white', width: '100%', maxWidth: '420px', padding: '40px', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)', textAlign: 'center',
         },
-        logo: {
-            fontSize: '40px',
-            marginBottom: '20px',
-        },
-        title: {
-            fontSize: '24px',
-            fontWeight: '800',
-            color: '#111827',
-            marginBottom: '8px',
-        },
+        logo: { fontSize: '40px', marginBottom: '20px', },
+        title: { fontSize: '24px', fontWeight: '800', color: '#111827', marginBottom: '8px', },
         subtitle: {
             color: '#6b7280',
             fontSize: '14px',
@@ -71,7 +51,7 @@ const Login = ({ onLoginSuccess }) => {
         },
         inputGroup: {
             marginBottom: '20px',
-            textAlign: 'left', 
+            textAlign: 'left',
         },
         label: {
             display: 'block',
@@ -94,7 +74,7 @@ const Login = ({ onLoginSuccess }) => {
         button: {
             width: '100%',
             padding: '12px',
-            background: '#2563eb', 
+            background: '#2563eb',
             color: 'white',
             border: 'none',
             borderRadius: '8px',
@@ -124,7 +104,7 @@ const Login = ({ onLoginSuccess }) => {
     return (
         <div style={styles.container}>
             <div style={styles.card}>
-             
+
                 {/* Header */}
                 <h2 style={styles.title}>Đăng nhập hệ thống</h2>
                 <p style={styles.subtitle}>Chào mừng trở lại! Vui lòng nhập thông tin.</p>
@@ -153,7 +133,7 @@ const Login = ({ onLoginSuccess }) => {
                             required
                         />
                     </div>
-                    
+
                     <div style={styles.inputGroup}>
                         <label style={styles.label}>Mật khẩu</label>
                         <input
@@ -174,8 +154,8 @@ const Login = ({ onLoginSuccess }) => {
                         />
                     </div>
 
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         style={styles.button}
                         disabled={isLoading}
                         onMouseOver={(e) => !isLoading && (e.target.style.background = '#1d4ed8')}
@@ -186,7 +166,7 @@ const Login = ({ onLoginSuccess }) => {
                 </form>
 
                 <div style={styles.footer}>
-                    Chưa có tài khoản? <span style={{color: '#2563eb', cursor: 'pointer', fontWeight: '600'}}>Liên hệ </span>
+                    Chưa có tài khoản? <span style={{ color: '#2563eb', cursor: 'pointer', fontWeight: '600' }}>Liên hệ </span>
                 </div>
             </div>
         </div>
