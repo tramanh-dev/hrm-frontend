@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = 'http://hrm-backend-iybp.onrender.com';
 
 const initialFormData = {
     name: '',
@@ -12,7 +12,6 @@ const initialFormData = {
     department_id: '',
     salary_level_id: '',
 };
-// --- STYLES INLINE CHUNG ---
 const style = {
     // Containers
     container: { maxWidth: '600px', margin: 'auto' },
@@ -49,7 +48,6 @@ function EmployeeCreateForm({ onSuccess, onCancel }) {
     const [loading, setLoading] = useState(false);
     const [serverErrors, setServerErrors] = useState({});
 
-    // Fetch Departments khi component mount
     useEffect(() => {
         const fetchDepartments = async () => {
             const token = localStorage.getItem('auth_token');
@@ -67,7 +65,7 @@ function EmployeeCreateForm({ onSuccess, onCancel }) {
         fetchDepartments();
     }, []);
 
-    // --- LOGIC XỬ LÝ API VÀ INPUT ---
+    //  XỬ LÝ API VÀ INPUT
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -82,7 +80,6 @@ function EmployeeCreateForm({ onSuccess, onCancel }) {
         setServerErrors({});
         const token = localStorage.getItem('auth_token');
 
-        // Lọc department_id rỗng ra khỏi request nếu người dùng không chọn
         const dataToSend = { ...formData };
         if (dataToSend.department_id === '') {
             delete dataToSend.department_id;
@@ -132,7 +129,6 @@ function EmployeeCreateForm({ onSuccess, onCancel }) {
 
                 <form onSubmit={handleSubmit}>
 
-                    {/* Tên Nhân viên */}
                     <div style={style.formGroup}>
                         <label style={style.label}>Tên nhân viên:</label>
                         <input
@@ -147,7 +143,6 @@ function EmployeeCreateForm({ onSuccess, onCancel }) {
                         {getErrorMessage('name')}
                     </div>
 
-                    {/* Email */}
                     <div style={style.formGroup}>
                         <label style={style.label}>Email:</label>
                         <input
@@ -162,7 +157,6 @@ function EmployeeCreateForm({ onSuccess, onCancel }) {
                         {getErrorMessage('email')}
                     </div>
 
-                    {/* Mật khẩu và Xác nhận Mật khẩu */}
                     <div style={style.formRow}>
                         <div style={style.formGroup}>
                             <label style={style.label}>Mật khẩu:</label>
@@ -191,7 +185,6 @@ function EmployeeCreateForm({ onSuccess, onCancel }) {
                         </div>
                     </div>
 
-                    {/* Quyền (Role) */}
                     <div style={style.formRow}>
                         <div style={style.formGroup}>
                             <label style={style.label}>Quyền (Role):</label>
@@ -208,7 +201,6 @@ function EmployeeCreateForm({ onSuccess, onCancel }) {
                             {getErrorMessage('role')}
                         </div>
 
-                        {/* --- PHẦN MỚI THÊM: PHÒNG BAN --- */}
                         <div style={style.formGroup}>
                             <label style={style.label}>🏢 Phòng ban:</label>
                             <select
@@ -230,14 +222,13 @@ function EmployeeCreateForm({ onSuccess, onCancel }) {
                         <div style={style.formGroup}>
                             <label style={style.label}>📈 Cấp bậc:</label>
                             <select
-                                name="salary_level_id" // Giữ nguyên name là ID để handleChange hoạt động đúng
-                                value={formData.salary_level_id} // SỬA: Phải dùng .salary_level_id để khớp với state
+                                name="salary_level_id"
+                                value={formData.salary_level_id} 
                                 onChange={handleChange}
                                 style={getFieldStyle('salary_level_id')}
                                 required
                             >
                                 <option value="">-- Chọn cấp bậc --</option>
-                                {/* SỬA: value phải là số ID (1, 2, 3) để lưu được vào database */}
                                 <option value="1">Fresher</option>
                                 <option value="2">Junior</option>
                                 <option value="3">Senior</option>

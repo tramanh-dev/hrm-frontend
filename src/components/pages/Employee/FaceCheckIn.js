@@ -29,7 +29,7 @@ const FaceCheckIn = () => {
                     setUserCoords(coords);
                     
                     const token = localStorage.getItem('auth_token');
-                    const res = await axios.post('http://127.0.0.1:8000/api/attendance/verify-location', 
+                    const res = await axios.post('http://hrm-backend-iybp.onrender.com/api/attendance/verify-location', 
                         coords,
                         { headers: { Authorization: `Bearer ${token}` } }
                     );
@@ -89,7 +89,7 @@ const FaceCheckIn = () => {
         if (detection) {
             try {
                 const token = localStorage.getItem('auth_token');
-                await axios.post('http://127.0.0.1:8000/api/attendance/check-in', {
+                await axios.post('http://hrm-backend-iybp.onrender.com/api/attendance/check-in', {
                     face_descriptors: Array.from(detection.descriptor),
                     lat: userCoords.latitude,
                     lng: userCoords.longitude

@@ -3,7 +3,7 @@ import axios from 'axios';
 import EmployeeCreateForm from './EmployeeCreateForm';
 import EmployeeEditForm from './EmployeeEditForm';
 import EmployeeDetail from './EmployeeDetail';
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = 'http://hrm-backend-iybp.onrender.com';
 
 function EmployeeManagement() {
     const [employees, setEmployees] = useState([]);

@@ -9,7 +9,6 @@ const RegisterFace = () => {
     const [status, setStatus] = useState("Đang khởi tạo camera...");
 
     useEffect(() => {
-        // Nạp bộ não AI từ thư mục public/models
         const loadModels = async () => {
             try {
                 const MODEL_URL = '/models';
@@ -35,17 +34,16 @@ const RegisterFace = () => {
         const imageSrc = webcamRef.current.getScreenshot();
         const img = await faceapi.fetchImage(imageSrc);
 
-        // Trích xuất mảng 128 số đặc trưng
         const detection = await faceapi.detectSingleFace(img, new faceapi.TinyFaceDetectorOptions())
             .withFaceLandmarks()
             .withFaceDescriptor();
 
         if (detection) {
-            const faceData = Array.from(detection.descriptor); // Chuyển descriptor thành mảng JSON
+            const faceData = Array.from(detection.descriptor); 
             
             try {
-                const token = localStorage.getItem('auth_token'); // Lấy token đăng nhập
-                const response = await axios.post('http://127.0.0.1:8000/api/attendance/register-face', 
+                const token = localStorage.getItem('auth_token'); 
+                const response = await axios.post('http://hrm-backend-iybp.onrender.com/api/attendance/register-face', 
                     { face_data: faceData },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );

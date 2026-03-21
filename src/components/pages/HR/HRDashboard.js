@@ -6,22 +6,20 @@ import {
     LineChart, Line, PieChart, Pie 
 } from 'recharts';
 
-// --- 1. IMPORT CÁC COMPONENT QUẢN TRỊ (ADMIN) ---
+
 import EmployeeManagement from './Employee/EmployeeManagement';
 import DepartmentManagement from './Department/DepartmentManagement';
-import TaskManagement from './Task/TaskManagement'; // Quản lý công việc toàn cty
-import LeaveManagement from '../LeaveManagement';   // Admin duyệt đơn nghỉ phép
-import TimesheetManagement from './Timesheet/TimesheetManagement'; // Admin xem bảng công toàn cty
+import TaskManagement from './Task/TaskManagement'; 
+import LeaveManagement from '../LeaveManagement';  
+import TimesheetManagement from './Timesheet/TimesheetManagement'; 
 
-// (Đã bỏ PayrollManagement theo yêu cầu)
 
-// --- 2. IMPORT CÁC COMPONENT CÁ NHÂN (EMPLOYEE) ---
 import LeaveForm from '../Employee/LeaveForm'; 
 import Timesheet from '../Employee/Timesheet';
 import MyPayslip from '../Employee/MyPayslip';
 import Profile from '../Employee/Profile';
 
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = 'http://hrm-backend-iybp.onrender.com';
 
 function HRDashboard({ user, onLogout, onUpdateUser }) {
     const [currentTab, setCurrentTab] = useState('dashboard');

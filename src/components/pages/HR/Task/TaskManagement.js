@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = 'http://hrm-backend-iybp.onrender.com';
 
 function TaskManagement() {
     const [tasks, setTasks] = useState([]);
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [dueDate, setDueDate] = useState('');
-    const [selectedFile, setSelectedFile] = useState(null); // Cho tạo mới
+    const [selectedFile, setSelectedFile] = useState(null);
 
     // Modal Trạng thái
     const [showCreateModal, setShowCreateModal] = useState(false);
@@ -17,8 +17,8 @@ function TaskManagement() {
     // Modal Phân công & File
     const [assignTask, setAssignTask] = useState(null);
     const [selectedUserIds, setSelectedUserIds] = useState([]);
-    const [newFile, setNewFile] = useState(null); // File bổ sung
-    const [filesToDelete, setFilesToDelete] = useState([]); // Danh sách chờ xóa (nút X)
+    const [newFile, setNewFile] = useState(null);
+    const [filesToDelete, setFilesToDelete] = useState([]);
 
     // --- STYLES ---
     const gridContainerStyle = { display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginTop: '20px' };
@@ -92,10 +92,10 @@ function TaskManagement() {
         const currentAssigneeIds = task.assignees ? task.assignees.map(u => u.id) : [];
         setSelectedUserIds(currentAssigneeIds);
         setDueDate(task.due_date || '');
-        
+
         // Reset state file khi mở modal mới
         setNewFile(null);
-        setFilesToDelete([]); 
+        setFilesToDelete([]);
     };
 
     const handleCheckboxChange = (userId) => {
@@ -109,14 +109,10 @@ function TaskManagement() {
         const formData = new FormData();
 
         formData.append('due_date', dueDate || '');
-        
-        // Gửi mảng User ID
-        selectedUserIds.forEach(id => formData.append('user_ids[]', id));
 
-        // Gửi mảng các file muốn XOÁ (Từ nút X)
+        selectedUserIds.forEach(id => formData.append('user_ids[]', id));
         filesToDelete.forEach(path => formData.append('delete_files[]', path));
 
-        // Gửi file mới muốn THÊM
         if (newFile) {
             formData.append('attachment', newFile);
         }
@@ -205,23 +201,22 @@ function TaskManagement() {
                 </div>
             )}
 
-            {/* MODAL PHÂN CÔNG (Có Quản lý File + Nút X) */}
+            {/* MODAL PHÂN CÔNG  */}
             {assignTask && (
                 <div style={modalOverlayStyle}>
                     <div style={{ ...modalContentStyle, width: '400px' }}>
                         <h3 style={{ marginTop: 0 }}>Phân công: {assignTask.title}</h3>
 
-                        {/* --- KHU VỰC QUẢN LÝ TÀI LIỆU (Nút X ở đây) --- */}
+                        {/* KHU VỰC QUẢN LÝ TÀI LIỆU  */}
                         <div style={{ marginBottom: '15px', padding: '12px', background: '#f0f7ff', borderRadius: '6px', border: '1px dashed #3182ce' }}>
                             <label style={{ ...labelStyle, color: '#2c5282' }}>📁 Tài liệu hướng dẫn:</label>
-                            
+
                             <div style={{ marginBottom: '10px' }}>
-                                {/* Logic: Kiểm tra mảng hay chuỗi để hiện list file */}
                                 {assignTask.attachment_path && (Array.isArray(assignTask.attachment_path) ? assignTask.attachment_path : [assignTask.attachment_path]).map((path, idx) => (
                                     !filesToDelete.includes(path) && (
                                         <div key={idx} style={fileItemStyle}>
                                             <span style={{ fontSize: '12px' }}>📄 {path.split('/').pop()}</span>
-                                            <button 
+                                            <button
                                                 type="button"
                                                 onClick={() => setFilesToDelete([...filesToDelete, path])}
                                                 style={deleteXStyle}

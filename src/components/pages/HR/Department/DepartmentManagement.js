@@ -15,7 +15,7 @@ const DepartmentManagement = () => {
         const token = localStorage.getItem('auth_token');
         try {
             setLoading(true);
-            const res = await axios.get('http://127.0.0.1:8000/api/departments', {
+            const res = await axios.get('http://hrm-backend-iybp.onrender.com/api/departments', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setDepartments(res.data);
@@ -30,35 +30,30 @@ const DepartmentManagement = () => {
         fetchDepartments();
     }, []);
 
-    // 2. Xử lý mở form Thêm mới
     const handleCreate = () => {
         setEditingId(null);
         setFormData({ name: '', description: '' });
         setShowForm(true);
     };
 
-    // 3. Xử lý mở form Sửa
     const handleEdit = (dept) => {
         setEditingId(dept.id);
         setFormData({ name: dept.name, description: dept.description });
         setShowForm(true);
     };
 
-    // 4. Xử lý Lưu (Dùng chung cho cả Thêm và Sửa)
     const handleSave = async () => {
         if (!formData.name.trim()) return alert("Tên phòng ban không được để trống!");
 
         const token = localStorage.getItem('auth_token');
         try {
             if (editingId) {
-                // Đang ở chế độ Sửa -> Gọi API PUT
-                await axios.put(`http://127.0.0.1:8000/api/departments/${editingId}`, formData, {
+                await axios.put(`http://hrm-backend-iybp.onrender.com/api/departments/${editingId}`, formData, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 alert("Cập nhật thành công!");
             } else {
-                // Đang ở chế độ Thêm -> Gọi API POST
-                await axios.post('http://127.0.0.1:8000/api/departments', formData, {
+                await axios.post('http://hrm-backend-iybp.onrender.com/api/departments', formData, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 alert("Thêm mới thành công!");
@@ -77,7 +72,7 @@ const DepartmentManagement = () => {
 
         const token = localStorage.getItem('auth_token');
         try {
-            await axios.delete(`http://127.0.0.1:8000/api/departments/${id}`, {
+            await axios.delete(`http://hrm-backend-iybp.onrender.com/api/departments/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             alert("Đã xóa thành công!");

@@ -13,7 +13,6 @@ function CreateTask({ defaultAssigneeId, onSuccess }) {
         due_date: '',
     });
 
-    // --- STATE MỚI: Lưu file ---
     const [attachment, setAttachment] = useState(null);
 
     const [employees, setEmployees] = useState([]);
@@ -26,7 +25,7 @@ function CreateTask({ defaultAssigneeId, onSuccess }) {
             if (!token) return;
 
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/employees', {
+                const response = await axios.get('http://hrm-backend-iybp.onrender.com/api/employees', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 const employeeList = response.data;
@@ -51,7 +50,6 @@ function CreateTask({ defaultAssigneeId, onSuccess }) {
         setTaskData({ ...taskData, [e.target.name]: e.target.value });
     };
 
-    // --- Xử lý chọn file ---
     const handleFileChange = (e) => {
         setAttachment(e.target.files[0]);
     };
@@ -69,19 +67,19 @@ function CreateTask({ defaultAssigneeId, onSuccess }) {
         formData.append('due_date', taskData.due_date || '');
 
         if (attachment) {
-            formData.append('attachment', attachment); // Khớp với $request->file('attachment') ở Laravel
+            formData.append('attachment', attachment); 
         }
 
         try {
-            await axios.post('http://127.0.0.1:8000/api/tasks', formData, {
+            await axios.post('http://hrm-backend-iybp.onrender.com/api/tasks', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data' // Bắt buộc khi gửi file
+                    'Content-Type': 'multipart/form-data' 
                 }
             });
 
             setMessage("Tạo công việc thành công!");
-            setAttachment(null); // Reset file sau khi xong
+            setAttachment(null); 
 
             if (onSuccess) {
                 onSuccess();

@@ -1,42 +1,16 @@
-import React from 'react'; // Bỏ useState, useEffect, axios nếu không dùng bên trong component
+import React from 'react';
 
 const TaskReport = ({ task, onClose }) => {
-    const fileUrl = task.report_file_path ? `http://127.0.0.1:8000/storage/${task.report_file_path}` : null;
+    const fileUrl = task.report_file_path ? `http://hrm-backend-iybp.onrender.com/storage/${task.report_file_path}` : null;
 
-    // -----------------------------------------------------------------
-    // CSS INLINE CHO MODAL 
+
     const modalStyle = {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 1000,
+        position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000,
     };
-
     const contentStyle = {
-        background: 'white',
-        padding: '30px',
-        borderRadius: '10px',
-        width: '500px',
-        maxWidth: '90%',
-        boxShadow: '0 5px 15px rgba(0, 0, 0, 0.3)',
-        position: 'relative',
-        animation: 'fadeIn 0.3s',
+        background: 'white', padding: '30px', borderRadius: '10px', width: '500px', maxWidth: '90%', boxShadow: '0 5px 15px rgba(0, 0, 0, 0.3)', position: 'relative', animation: 'fadeIn 0.3s',
     };
-
-    const headerStyle = {
-        borderBottom: '2px solid #3182ce',
-        paddingBottom: '10px',
-        marginBottom: '20px',
-        color: '#2d3748',
-    };
-
-    // -----------------------------------------------------------------
+    const headerStyle = { borderBottom: '2px solid #3182ce', paddingBottom: '10px', marginBottom: '20px', color: '#2d3748', };
 
     return (
         <div style={modalStyle} onClick={onClose}>

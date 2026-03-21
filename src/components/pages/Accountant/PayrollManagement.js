@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = 'https://hrm-backend-iybp.onrender.com';
 
 function PayrollManagement() {
     const [drafts, setDrafts] = useState([]);

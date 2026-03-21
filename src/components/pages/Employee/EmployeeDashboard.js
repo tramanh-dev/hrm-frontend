@@ -11,24 +11,24 @@ import PayrollManagement from '../Accountant/PayrollManagement';
 const styles = {
     container: { display: 'flex', minHeight: '100vh', background: '#f4f6f8', fontFamily: "'Segoe UI', sans-serif" },
     sidebar: (isOpen) => ({
-        width: isOpen ? '260px' : '0px', 
-        background: '#fff', 
+        width: isOpen ? '260px' : '0px',
+        background: '#fff',
         borderRight: isOpen ? '1px solid #e0e0e0' : 'none',
-        display: 'flex', 
-        flexDirection: 'column', 
-        position: 'fixed', 
-        height: '100vh', 
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'fixed',
+        height: '100vh',
         zIndex: 100,
         transition: 'all 0.3s ease',
         overflow: 'hidden',
         whiteSpace: 'nowrap'
     }),
-    main: (isSidebarOpen) => ({ 
-        flex: 1, 
-        marginLeft: isSidebarOpen ? '260px' : '0px', 
-        display: 'flex', 
+    main: (isSidebarOpen) => ({
+        flex: 1,
+        marginLeft: isSidebarOpen ? '260px' : '0px',
+        display: 'flex',
         flexDirection: 'column',
-        transition: 'all 0.3s ease' 
+        transition: 'all 0.3s ease'
     }),
     header: {
         height: '64px', background: '#fff', borderBottom: '1px solid #e0e0e0',
@@ -62,10 +62,10 @@ const styles = {
         borderLeft: active ? '4px solid #ff9f43' : '4px solid transparent',
         background: active ? '#fff8f0' : 'transparent', fontWeight: active ? '600' : 'normal'
     }),
-    badge: (bg) => ({ 
-        position: 'absolute', top: '-6px', right: '-8px', background: bg, 
-        color: '#fff', fontSize: '10px', fontWeight: 'bold', 
-        borderRadius: '50%', width: '18px', height: '18px', 
+    badge: (bg) => ({
+        position: 'absolute', top: '-6px', right: '-8px', background: bg,
+        color: '#fff', fontSize: '10px', fontWeight: 'bold',
+        borderRadius: '50%', width: '18px', height: '18px',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         border: '2px solid #fff', boxShadow: '0 2px 4px rgba(0,0,0,0.2)', zIndex: 10
     }),
@@ -81,7 +81,7 @@ const DetailModal = ({
     const chatEndRef = useRef(null);
     useEffect(() => { chatEndRef.current?.scrollIntoView({ behavior: "smooth" }); }, [comments]);
     if (!selectedItem) return null;
-    
+
     const isTask = selectedItem.type === 'task';
     const isExpired = new Date(selectedItem.due_date) < new Date();
 
@@ -91,7 +91,7 @@ const DetailModal = ({
                 <button onClick={() => setSelectedItem(null)} style={{ position: 'absolute', top: '20px', left: '-15px', border: 'none', background: '#fff', borderRadius: '50%', width: '30px', height: '30px', cursor: 'pointer', zIndex: 1001 }}>➜</button>
                 <h2 style={{ borderBottom: '2px solid #ff9f43', paddingBottom: '10px', marginBottom: '20px', fontSize: '20px' }}>{isTask ? '📋 Chi tiết Công việc' : '📝 Chi tiết Đơn nghỉ'}</h2>
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-                    
+
                     <div style={{ marginBottom: '20px', padding: '15px', background: '#f8f9fa', borderRadius: '8px', border: '1px solid #eee' }}>
                         <h3 style={{ color: '#2b6cb0', marginTop: 0, fontSize: '18px' }}>{selectedItem.title || selectedItem.reason}</h3>
                         <p style={{ fontSize: '14px' }}><strong>Mô tả:</strong> {selectedItem.description || selectedItem.reason}</p>
@@ -101,8 +101,8 @@ const DetailModal = ({
 
                         {/* --- NÚT BÁO CÁO ĐÃ QUAY TRỞ LẠI --- */}
                         {isTask && selectedItem.status !== 2 && !isExpired && (
-                            <button 
-                                onClick={() => setIsReporting(true)} 
+                            <button
+                                onClick={() => setIsReporting(true)}
                                 style={{ width: '100%', padding: '12px', background: '#e53e3e', color: '#fff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', marginTop: '15px' }}
                             >
                                 ✍️ Gửi báo cáo kết quả
@@ -179,8 +179,12 @@ function EmployeeDashboard({ onLogout, user, onUpdateUser }) {
         if (!token) return;
         try {
             const [resTask, resLeave] = await Promise.all([
-                axios.get('http://127.0.0.1:8000/api/my-tasks', { headers: { Authorization: `Bearer ${token}` } }),
-                axios.get('http://127.0.0.1:8000/api/leaves', { headers: { Authorization: `Bearer ${token}` } })
+                axios.get('https://hrm-backend-iybp.onrender.com/api/my-tasks', {
+                    headers: { Authorization: `Bearer ${token}` }
+                }),
+                axios.get('https://hrm-backend-iybp.onrender.com/api/leaves', {
+                    headers: { Authorization: `Bearer ${token}` }
+                })
             ]);
             setTasks(resTask.data.map(t => ({ ...t, type: 'task' })));
             setLeaves(resLeave.data.map(l => ({ ...l, type: 'leave' })));
@@ -200,7 +204,7 @@ function EmployeeDashboard({ onLogout, user, onUpdateUser }) {
     const fetchComments = async (taskId) => {
         const token = localStorage.getItem('auth_token');
         try {
-            const res = await axios.get(`http://127.0.0.1:8000/api/tasks/${taskId}/comments`, { headers: { Authorization: `Bearer ${token}` } });
+            const res = await axios.get(`http://hrm-backend-iybp.onrender.com/api/tasks/${taskId}/comments`, { headers: { Authorization: `Bearer ${token}` } });
             setComments(res.data);
         } catch (error) { console.error(error); }
     };
@@ -209,7 +213,7 @@ function EmployeeDashboard({ onLogout, user, onUpdateUser }) {
         if (!newComment.trim()) return;
         const token = localStorage.getItem('auth_token');
         try {
-            const res = await axios.post(`http://127.0.0.1:8000/api/tasks/${taskId}/comments`, { content: newComment }, { headers: { Authorization: `Bearer ${token}` } });
+            const res = await axios.post(`http://hrm-backend-iybp.onrender.com/api/tasks/${taskId}/comments`, { content: newComment }, { headers: { Authorization: `Bearer ${token}` } });
             setComments([...comments, { ...res.data, user: { name: user.name } }]);
             setNewComment('');
         } catch (error) { alert("Lỗi gửi tin nhắn"); }
@@ -275,7 +279,7 @@ function EmployeeDashboard({ onLogout, user, onUpdateUser }) {
                     </div>
                 )}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }} onClick={() => setCurrentView('profile')}>
-                    <img src={user?.avatar ? `http://127.0.0.1:8000/storage/${user.avatar}` : null} alt="User" style={{ width: '35px', height: '35px', borderRadius: '50%', objectFit: 'cover' }} />
+                    <img src={user?.avatar ? `http://hrm-backend-iybp.onrender.com/storage/${user.avatar}` : null} alt="User" style={{ width: '35px', height: '35px', borderRadius: '50%', objectFit: 'cover' }} />
                     <span style={{ fontWeight: '600' }}>{user?.name}</span>
                 </div>
             </div>
@@ -305,45 +309,45 @@ function EmployeeDashboard({ onLogout, user, onUpdateUser }) {
                 <Header />
                 <div style={styles.content}>
                     {currentView === 'payroll' ? <PayrollManagement /> :
-                     currentView === 'profile' ? <Profile user={user} onBack={() => setCurrentView('dashboard')} onUpdateUser={onUpdateUser} /> :
-                     currentView === 'leave_request' ? <LeaveForm onBack={() => setCurrentView('dashboard')} /> :
-                     currentView === 'timesheet' ? <Timesheet onBack={() => setCurrentView('dashboard')} /> :
-                     currentView === 'face_checkin' ? <FaceCheckIn onBack={() => setCurrentView('dashboard')} /> :
-                     currentView === 'my_payslips' ? <MyPayslip onBack={() => setCurrentView('dashboard')} /> :
-                     currentView === 'tasks' ? (
-                        <div style={styles.sectionCard}>
-                            <h2 style={styles.sectionTitle}>📋 Danh sách công việc</h2>
-                            {tasks.map((task, idx) => {
-                                const isFav = favoriteIds.includes(task.id + 'task');
-                                return (
-                                    <div key={idx} style={{ padding: '15px 0', borderBottom: '1px solid #eee', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} onClick={() => handleItemClick(task)}>
-                                        <div><div style={{ fontWeight: 'bold' }}>💼 {task.title}</div><div style={{ fontSize: '13px', color: '#666' }}>Hạn: {task.due_date}</div></div>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                                            <div style={{ color: task.status === 2 ? 'green' : 'orange', fontWeight: 'bold' }}>{task.status === 2 ? 'Xong' : 'Làm'}</div>
-                                            <div onClick={(e) => toggleFavorite(e, task)} style={{ fontSize: '22px', color: isFav ? '#d69e2e' : '#cbd5e0' }}>{isFav ? '⭐' : '☆'}</div>
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                     ) : (
-                        <>
-                            <h1>{filterStatus === 'all' ? '🏠 Trang chủ' : filterStatus === 'pending' ? '🔔 Tất cả thông báo' : '⭐ Mục yêu thích'}</h1>
-                            {filterStatus === 'all' ? (
-                                <>
-                                    <div style={styles.timeWidget}><div>Hôm nay: {new Date().toLocaleDateString('vi-VN')}</div><button onClick={() => setCurrentView('face_checkin')} style={{ background: '#ff9f43', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '5px' }}>🕒 Chấm công</button></div>
-                                    <div style={styles.statusGrid}>
-                                        <div style={styles.statusCard('#2c7a7b', '#e6fffa')}>⏳ Chờ: {leaves.filter(l => l.status === 'pending').length}</div>
-                                        <div style={styles.statusCard('#2f855a', '#f0fff4')}>✅ Duyệt: {leaves.filter(l => l.status === 'approved').length}</div>
-                                        <div style={styles.statusCard('#c53030', '#fff5f5')}>⛔ Từ chối: {leaves.filter(l => l.status === 'rejected').length}</div>
-                                    </div>
-                                    <div style={styles.sectionCard}><h3 style={styles.sectionTitle}>Thông báo gần đây</h3>{renderList(notificationList.slice(0, 5))}</div>
-                                </>
-                            ) : (
-                                <div style={styles.sectionCard}>{filterStatus === 'pending' ? renderList(notificationList) : renderList(favoriteList)}</div>
-                            )}
-                        </>
-                     )}
+                        currentView === 'profile' ? <Profile user={user} onBack={() => setCurrentView('dashboard')} onUpdateUser={onUpdateUser} /> :
+                            currentView === 'leave_request' ? <LeaveForm onBack={() => setCurrentView('dashboard')} /> :
+                                currentView === 'timesheet' ? <Timesheet onBack={() => setCurrentView('dashboard')} /> :
+                                    currentView === 'face_checkin' ? <FaceCheckIn onBack={() => setCurrentView('dashboard')} /> :
+                                        currentView === 'my_payslips' ? <MyPayslip onBack={() => setCurrentView('dashboard')} /> :
+                                            currentView === 'tasks' ? (
+                                                <div style={styles.sectionCard}>
+                                                    <h2 style={styles.sectionTitle}>📋 Danh sách công việc</h2>
+                                                    {tasks.map((task, idx) => {
+                                                        const isFav = favoriteIds.includes(task.id + 'task');
+                                                        return (
+                                                            <div key={idx} style={{ padding: '15px 0', borderBottom: '1px solid #eee', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }} onClick={() => handleItemClick(task)}>
+                                                                <div><div style={{ fontWeight: 'bold' }}>💼 {task.title}</div><div style={{ fontSize: '13px', color: '#666' }}>Hạn: {task.due_date}</div></div>
+                                                                <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                                                                    <div style={{ color: task.status === 2 ? 'green' : 'orange', fontWeight: 'bold' }}>{task.status === 2 ? 'Xong' : 'Làm'}</div>
+                                                                    <div onClick={(e) => toggleFavorite(e, task)} style={{ fontSize: '22px', color: isFav ? '#d69e2e' : '#cbd5e0' }}>{isFav ? '⭐' : '☆'}</div>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            ) : (
+                                                <>
+                                                    <h1>{filterStatus === 'all' ? '🏠 Trang chủ' : filterStatus === 'pending' ? '🔔 Tất cả thông báo' : '⭐ Mục yêu thích'}</h1>
+                                                    {filterStatus === 'all' ? (
+                                                        <>
+                                                            <div style={styles.timeWidget}><div>Hôm nay: {new Date().toLocaleDateString('vi-VN')}</div><button onClick={() => setCurrentView('face_checkin')} style={{ background: '#ff9f43', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '5px' }}>🕒 Chấm công</button></div>
+                                                            <div style={styles.statusGrid}>
+                                                                <div style={styles.statusCard('#2c7a7b', '#e6fffa')}>⏳ Chờ: {leaves.filter(l => l.status === 'pending').length}</div>
+                                                                <div style={styles.statusCard('#2f855a', '#f0fff4')}>✅ Duyệt: {leaves.filter(l => l.status === 'approved').length}</div>
+                                                                <div style={styles.statusCard('#c53030', '#fff5f5')}>⛔ Từ chối: {leaves.filter(l => l.status === 'rejected').length}</div>
+                                                            </div>
+                                                            <div style={styles.sectionCard}><h3 style={styles.sectionTitle}>Thông báo gần đây</h3>{renderList(notificationList.slice(0, 5))}</div>
+                                                        </>
+                                                    ) : (
+                                                        <div style={styles.sectionCard}>{filterStatus === 'pending' ? renderList(notificationList) : renderList(favoriteList)}</div>
+                                                    )}
+                                                </>
+                                            )}
                 </div>
             </div>
             <DetailModal selectedItem={selectedItem} setSelectedItem={setSelectedItem} isReporting={isReporting} setIsReporting={setIsReporting} fetchData={fetchData} comments={comments} newComment={newComment} setNewComment={setNewComment} handleSendComment={handleSendComment} user={user} />

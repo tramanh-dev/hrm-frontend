@@ -8,9 +8,9 @@ function TimesheetManagement() {
     try {
       const token = localStorage.getItem('auth_token');
       const response = await axios({
-        url: 'http://127.0.0.1:8000/api/export-timesheet',
+        url: 'http://hrm-backend-iybp.onrender.com/api/export-timesheet',
         method: 'GET',
-        responseType: 'blob', // Bắt buộc để tải file
+        responseType: 'blob', 
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -29,7 +29,7 @@ function TimesheetManagement() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('auth_token');
-        const res = await axios.get('http://127.0.0.1:8000/api/hr/timesheets', {
+        const res = await axios.get('http://hrm-backend-iybp.onrender.com/api/hr/timesheets', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setData(res.data);
@@ -79,7 +79,7 @@ function TimesheetManagement() {
                 <tr key={index} style={{ borderBottom: '1px solid #edf2f7', background: index % 2 === 0 ? '#fff' : '#f7fafc' }}>
                   <td style={{ padding: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <div style={{ width: '30px', height: '30px', borderRadius: '50%', background: '#cbd5e0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', color: '#fff', overflow: 'hidden' }}>
-                      {item.user.avatar ? <img src={`http://127.0.0.1:8000/storage/${item.user.avatar}`} alt="avt" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : item.user.name.charAt(0)}
+                      {item.user.avatar ? <img src={`http://hrm-backend-iybp.onrender.com/storage/${item.user.avatar}`} alt="avt" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : item.user.name.charAt(0)}
                     </div>
                     <div>
                       <div style={{ fontWeight: 'bold', color: '#2d3748' }}>{item.user.name}</div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = 'http://hrm-backend-iybp.onrender.com';
 
 const EmployeeEditForm = ({ employeeId, onSuccess, onCancel }) => {
     // 1. Thêm department_id vào state formData

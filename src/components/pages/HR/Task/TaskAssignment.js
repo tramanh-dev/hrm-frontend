@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = 'http://hrm-backend-iybp.onrender.com';
 
 function TaskAssignment() {
     const [tasks, setTasks] = useState([]);
@@ -22,12 +22,10 @@ function TaskAssignment() {
         const token = localStorage.getItem('auth_token');
         setLoading(true);
         try {
-            // 1. Lấy danh sách Task (Gọi API TaskController)
             const tasksRes = await axios.get(`${BASE_URL}/api/tasks`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
-            // 2. Lấy danh sách Nhân viên (Gọi API HrmController)
             const usersRes = await axios.get(`${BASE_URL}/api/employees`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -42,24 +40,18 @@ function TaskAssignment() {
         }
     };
 
-    // Mở Modal phân công
     const openAssignModal = (task) => {
         setCurrentTask(task);
-        // Lấy danh sách ID của những người ĐÃ được gán trước đó để tích sẵn
-        // Lưu ý: task.assignees phải được trả về từ Backend (TaskController -> with('assignees'))
         const existingIds = task.assignees ? task.assignees.map(u => u.id) : [];
         setSelectedUserIds(existingIds);
         setShowModal(true);
     };
 
-    // Xử lý khi tích chọn/bỏ chọn nhân viên
     const handleCheckboxChange = (userId) => {
         setSelectedUserIds(prevIds => {
             if (prevIds.includes(userId)) {
-                // Nếu đã có -> Bỏ chọn (Xóa khỏi mảng)
                 return prevIds.filter(id => id !== userId);
             } else {
-                // Chưa có -> Chọn (Thêm vào mảng)
                 return [...prevIds, userId];
             }
         });

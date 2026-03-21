@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import * as faceapi from 'face-api.js'; // Đảm bảo đã install face-api.js
+import * as faceapi from 'face-api.js'; 
 
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = 'http://hrm-backend-iybp.onrender.com';
 
 function Timesheet({ onBack }) {
     const [data, setData] = useState(null);
@@ -14,7 +14,7 @@ function Timesheet({ onBack }) {
     const videoRef = useRef();
     const streamRef = useRef(null);
 
-    // 1. Load Models và Dữ liệu khi vào trang
+ 
     useEffect(() => {
         const loadResources = async () => {
             try {
@@ -51,7 +51,7 @@ function Timesheet({ onBack }) {
         }
     };
 
-    // 2. Mở Camera
+  
     const handleStartScan = async () => {
         if (!modelsLoaded) {
             setMsg('⏳ Đang tải bộ quét, vui lòng đợi giây lát...');
@@ -81,15 +81,14 @@ function Timesheet({ onBack }) {
         }
     };
 
-    // 3. Logic xử lý Chấm công (Quét mặt thật)
-    // Tìm hàm handleAction trong Timesheet.js và thay bằng đoạn này:
+ 
     const handleAction = async (type) => {
         if (!videoRef.current) return;
         setLoading(true);
         setMsg('⏳ Đang nhận diện khuôn mặt...');
 
         try {
-            // QUÉT MẶT THẬT (Thay vì gửi mảng 0.1 như cũ)
+           
             const detection = await faceapi.detectSingleFace(videoRef.current, new faceapi.TinyFaceDetectorOptions())
                 .withFaceLandmarks().withFaceDescriptor();
 

@@ -11,7 +11,7 @@ window.Echo = new Echo({
     
     // --- THÊM PHẦN NÀY ĐỂ XÁC THỰC USER ---
     // Đường dẫn API xác thực của Laravel (thường là /api/broadcasting/auth)
-    authEndpoint: 'http://127.0.0.1:8000/api/broadcasting/auth', 
+    authEndpoint: 'http://hrm-backend-iybp.onrender.com/api/broadcasting/auth', 
     auth: {
         headers: {
             // Lấy token từ localStorage gửi kèm để Server biết ai đang login

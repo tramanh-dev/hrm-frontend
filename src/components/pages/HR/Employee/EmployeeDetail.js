@@ -21,23 +21,20 @@ function EmployeeDetail({ employeeId, onBack, defaultAssigneeId }) {
         try {
             setLoading(true);
 
-            // 🔥 TỐI ƯU: Gọi cả 2 API cùng một lúc (Song song)
             const [resTasks, resDetail] = await Promise.all([
-                axios.get(`http://127.0.0.1:8000/api/employees/${employeeId}/tasks`, {
+                axios.get(`http://hrm-backend-iybp.onrender.com/api/employees/${employeeId}/tasks`, {
                     headers: { Authorization: `Bearer ${token}` }
                 }),
-                axios.get(`http://127.0.0.1:8000/api/employees/${employeeId}`, {
+                axios.get(`http://hrm-backend-iybp.onrender.com/api/employees/${employeeId}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 })
             ]);
 
-            // Cập nhật dữ liệu sau khi cả 2 đã tải xong
             setTasks(resTasks.data);
             setEmployee(resDetail.data);
 
         } catch (error) {
             console.error("Lỗi lấy dữ liệu:", error);
-            // Có thể thêm thông báo lỗi cho người dùng ở đây
         } finally {
             setLoading(false);
         }
@@ -48,7 +45,6 @@ function EmployeeDetail({ employeeId, onBack, defaultAssigneeId }) {
 
     return (
         <div style={{ padding: '20px', border: '1px solid #e2e8f0', borderRadius: '10px', background: 'white' }}>
-            {/* --- PHẦN THÔNG TIN CÁ NHÂN (Đã thêm Phòng ban) --- */}
             <div style={{ borderBottom: '1px solid #eee', paddingBottom: '15px', marginBottom: '20px' }}>
                 <h2 style={{ color: '#2b6cb0', margin: '0 0 10px 0' }}>
                     {employee.name} <span style={{ fontSize: '14px', color: '#718096', fontWeight: 'normal' }}>(#{employee.id})</span>
@@ -58,7 +54,6 @@ function EmployeeDetail({ employeeId, onBack, defaultAssigneeId }) {
                     <div>📧 Email: <strong>{employee.email}</strong></div>
                     <div>🛡️ Vai trò: <strong style={{ color: employee.role === 'HR' ? '#e53e3e' : '#38a169' }}>{employee.role}</strong></div>
 
-                    {/* 👇 ĐÂY LÀ PHẦN PHÒNG BAN MỚI THÊM 👇 */}
                     <div style={{ gridColumn: '1 / -1' }}>
                         🏢 Phòng ban:
                         {employee.department ? (
@@ -71,9 +66,7 @@ function EmployeeDetail({ employeeId, onBack, defaultAssigneeId }) {
                     </div>
                 </div>
             </div>
-            {/* -------------------------------------------------- */}
 
-            {/* Menu chuyển đổi */}
             <div style={{ display: 'flex', gap: '15px', marginBottom: '20px', borderBottom: '2px solid #eee' }}>
                 <button
                     onClick={() => setMode('tasks')}
@@ -88,7 +81,6 @@ function EmployeeDetail({ employeeId, onBack, defaultAssigneeId }) {
                     + Giao việc mới
                 </button>
 
-                {/* Nút quay lại nhỏ ở góc phải */}
                 <button onClick={onBack} style={{ marginLeft: 'auto', border: 'none', background: 'none', cursor: 'pointer', color: '#718096' }}>
                     ❌ Đóng
                 </button>

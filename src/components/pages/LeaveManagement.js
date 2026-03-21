@@ -8,7 +8,7 @@ function LeaveManagement() {
     const [formData, setFormData] = useState({ start_date: '', end_date: '', reason: '' });
     const [loading, setLoading] = useState(false);
 
-    const BASE_URL = 'http://127.0.0.1:8000'; 
+    const BASE_URL = 'https://hrm-backend-iybp.onrender.com';
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user_info');
@@ -26,7 +26,7 @@ function LeaveManagement() {
         if (!token) return;
 
         const endpoint = currentUser.role === 'HR' ? '/api/all-leaves' : '/api/my-leaves';
-        
+
         try {
             const res = await axios.get(`${BASE_URL}${endpoint}`, {
                 headers: { Authorization: `Bearer ${token}` }
@@ -58,14 +58,14 @@ function LeaveManagement() {
 
     const handleApprove = async (id, status) => {
         const comment = prompt(status === 'approved' ? "Nhập lời nhắn (Optional):" : "Nhập lý do từ chối (Bắt buộc):");
-        
+
         if (status === 'rejected' && !comment) {
             return alert("Bạn phải nhập lý do từ chối!");
         }
 
         const token = localStorage.getItem('auth_token');
         try {
-            await axios.put(`${BASE_URL}/api/leaves/${id}/status`, 
+            await axios.put(`${BASE_URL}/api/leaves/${id}/status`,
                 { status, admin_comment: comment },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -78,7 +78,7 @@ function LeaveManagement() {
 
     // Helper: Hiển thị trạng thái đẹp mắt (sử dụng class CSS)
     const getStatusBadge = (status) => {
-        switch(status) {
+        switch (status) {
             case 'approved': return <span className="badge badge-success">✅ Đã duyệt</span>;
             case 'rejected': return <span className="badge badge-danger">❌ Từ chối</span>;
             default: return <span className="badge badge-warning">⏳ Chờ duyệt</span>;
@@ -89,7 +89,7 @@ function LeaveManagement() {
 
     return (
         <div className="page-content-container">
-            
+
             {/* 1. FORM XIN NGHỈ (Cho Nhân viên) */}
             {user.role !== 'HR' && (
                 <div className="card form-container">
@@ -97,37 +97,37 @@ function LeaveManagement() {
                     <form onSubmit={handleSubmit} className="form-grid-2-col">
                         <div className="form-group">
                             <label>Từ ngày:</label>
-                            <input 
-                                type="date" 
-                                className="form-input" 
-                                required 
-                                value={formData.start_date} 
-                                onChange={e => setFormData({...formData, start_date: e.target.value})} 
+                            <input
+                                type="date"
+                                className="form-input"
+                                required
+                                value={formData.start_date}
+                                onChange={e => setFormData({ ...formData, start_date: e.target.value })}
                             />
                         </div>
                         <div className="form-group">
                             <label>Đến ngày:</label>
-                            <input 
-                                type="date" 
-                                className="form-input" 
-                                required 
-                                value={formData.end_date} 
-                                onChange={e => setFormData({...formData, end_date: e.target.value})} 
+                            <input
+                                type="date"
+                                className="form-input"
+                                required
+                                value={formData.end_date}
+                                onChange={e => setFormData({ ...formData, end_date: e.target.value })}
                             />
                         </div>
                         <div className="form-group full-width">
                             <label>Lý do nghỉ:</label>
-                            <textarea 
-                                required 
-                                placeholder="Ví dụ: Em bị ốm / Nhà có việc bận..." 
+                            <textarea
+                                required
+                                placeholder="Ví dụ: Em bị ốm / Nhà có việc bận..."
                                 className="form-input"
-                                value={formData.reason} 
-                                onChange={e => setFormData({...formData, reason: e.target.value})} 
+                                value={formData.reason}
+                                onChange={e => setFormData({ ...formData, reason: e.target.value })}
                             />
                         </div>
-                        <button 
-                            type="submit" 
-                            disabled={loading} 
+                        <button
+                            type="submit"
+                            disabled={loading}
                             className="btn btn-primary full-width"
                         >
                             {loading ? 'Đang gửi đơn...' : 'Gửi Đơn Xin Nghỉ'}
@@ -138,7 +138,7 @@ function LeaveManagement() {
 
             {/* 2. DANH SÁCH ĐƠN */}
             <h3 className="section-heading">Danh sách đơn nghỉ phép</h3>
-            
+
             {leaves.length === 0 ? (
                 <p className="no-data-message">Chưa có đơn nghỉ phép nào.</p>
             ) : (
@@ -158,49 +158,49 @@ function LeaveManagement() {
                             {leaves.map(leave => (
                                 <tr key={leave.id}>
                                     <td>#{leave.id}</td>
-                                    
+
                                     {user.role === 'HR' && (
                                         <td className="employee-info-cell">
                                             <span className="employee-name">{leave.user?.name}</span>
                                             <small className="employee-email">{leave.user?.email}</small>
                                         </td>
                                     )}
-                                    
+
                                     <td>
                                         <div>{leave.start_date}</div>
                                         <div className="date-separator">→</div>
                                         <div>{leave.end_date}</div>
                                     </td>
-                                    
+
                                     <td className="reason-cell">
                                         <div className="reason-box">
                                             {leave.reason}
                                         </div>
                                     </td>
-                                    
+
                                     <td className="text-center">
-                                        {getStatusBadge(leave.status)} <br/>
+                                        {getStatusBadge(leave.status)} <br />
                                         {leave.admin_comment && (
                                             <div className="admin-comment">
                                                 "HR: {leave.admin_comment}"
                                             </div>
                                         )}
                                     </td>
-                                    
+
                                     {/* NÚT DUYỆT CHO HR */}
                                     {user.role === 'HR' && (
                                         <td className="actions-cell">
                                             {leave.status === 'pending' ? (
                                                 <div className="action-buttons-group">
-                                                    <button 
-                                                        onClick={() => handleApprove(leave.id, 'approved')} 
+                                                    <button
+                                                        onClick={() => handleApprove(leave.id, 'approved')}
                                                         title="Duyệt đơn này"
                                                         className="btn btn-sm btn-approve"
                                                     >
                                                         ✔ Duyệt
                                                     </button>
-                                                    <button 
-                                                        onClick={() => handleApprove(leave.id, 'rejected')} 
+                                                    <button
+                                                        onClick={() => handleApprove(leave.id, 'rejected')}
                                                         title="Từ chối đơn này"
                                                         className="btn btn-sm btn-reject"
                                                     >

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import RegisterFace from './RegisterFace'; // 1. IMPORT COMPONENT ĐÃ LÀM
+import RegisterFace from './RegisterFace'; 
 
-const BASE_URL = 'http://127.0.0.1:8000';
+const BASE_URL = 'hrm-backend-iybp.onrender.com';
 
 function Profile({ user, onBack, onUpdateUser }) {
     const [fullProfile, setFullProfile] = useState(user);
@@ -13,7 +13,7 @@ function Profile({ user, onBack, onUpdateUser }) {
 
     const [isEditing, setIsEditing] = useState(false);
     
-    // 2. THÊM STATE ĐỂ QUẢN LÝ CHẾ ĐỘ ĐĂNG KÝ MẶT
+    //  THÊM STATE ĐỂ QUẢN LÝ CHẾ ĐỘ ĐĂNG KÝ MẶT
     const [isRegisteringFace, setIsRegisteringFace] = useState(false);
     
     const [editFormData, setEditFormData] = useState({});
@@ -127,7 +127,7 @@ function Profile({ user, onBack, onUpdateUser }) {
         }
     };
 
-    // 3. LOGIC HIỂN THỊ NẾU ĐANG ĐĂNG KÝ MẶT
+    //  LOGIC HIỂN THỊ NẾU ĐANG ĐĂNG KÝ MẶT
     if (isRegisteringFace) {
         return (
             <div style={{ maxWidth: '800px', margin: '0 auto', background: '#fff', borderRadius: '15px', padding: '20px' }}>
@@ -163,7 +163,7 @@ function Profile({ user, onBack, onUpdateUser }) {
                 </div>
 
                 <div style={{ display: 'flex', gap: '10px' }}>
-                    {/* 4. NÚT MỞ ĐĂNG KÝ FACEID */}
+                    {/*  NÚT MỞ ĐĂNG KÝ FACEID */}
                     {!isEditing && (
                         <button
                             onClick={() => setIsRegisteringFace(true)}
@@ -184,7 +184,7 @@ function Profile({ user, onBack, onUpdateUser }) {
             </div>
 
             <div style={{ padding: '40px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                {/* ... (Giữ nguyên phần Khung Avatar) */}
+               
                 <div style={{ position: 'relative', marginBottom: '30px' }}>
                     <div style={{
                         width: '150px', height: '150px', borderRadius: '50%',
