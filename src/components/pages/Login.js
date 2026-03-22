@@ -108,6 +108,10 @@ const Login = ({ onLoginSuccess }) => {
                 {/* Header */}
                 <h2 style={styles.title}>Đăng nhập hệ thống</h2>
                 <p style={styles.subtitle}>Chào mừng trở lại! Vui lòng nhập thông tin.</p>
+                <p style={styles.subtitle}>admin@gmail.com   123</p>
+                <p style={styles.subtitle}>tramanh@gmal.com   123456</p>
+
+
 
                 {/* Thông báo lỗi */}
                 {error && <div style={styles.error}>⚠️ {error}</div>}
