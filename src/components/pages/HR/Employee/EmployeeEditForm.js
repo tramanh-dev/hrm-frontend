@@ -4,7 +4,6 @@ import axios from 'axios';
 const BASE_URL = 'https://hrm-backend-iybp.onrender.com';
 
 const EmployeeEditForm = ({ employeeId, onSuccess, onCancel }) => {
-    // 1. Thêm department_id vào state formData
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -17,7 +16,6 @@ const EmployeeEditForm = ({ employeeId, onSuccess, onCancel }) => {
         password: ''
     });
 
-    // 2. State lưu danh sách phòng ban để hiển thị trong dropdown
     const [departments, setDepartments] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -27,7 +25,6 @@ const EmployeeEditForm = ({ employeeId, onSuccess, onCancel }) => {
             const headers = { Authorization: `Bearer ${token}` };
 
             try {
-                // A. Lấy danh sách phòng ban trước
                 try {
                     const deptRes = await axios.get(`${BASE_URL}/api/departments`, { headers });
                     setDepartments(deptRes.data);
@@ -35,12 +32,10 @@ const EmployeeEditForm = ({ employeeId, onSuccess, onCancel }) => {
                     console.error("Lỗi không lấy được danh sách phòng ban:", deptErr);
                 }
 
-                // B. Lấy thông tin chi tiết nhân viên
                 if (employeeId) {
                     const res = await axios.get(`${BASE_URL}/api/employees/${employeeId}`, { headers });
                     const emp = res.data;
 
-                    // C. Đổ dữ liệu vào form
                     setFormData({
                         name: emp.name || '',
                         email: emp.email || '',
@@ -138,7 +133,6 @@ const EmployeeEditForm = ({ employeeId, onSuccess, onCancel }) => {
                     </select>
                 </div>
 
-                {/* --- PHẦN MỚI THÊM: PHÒNG BAN --- */}
                 <div style={{ gridColumn: '1 / -1' }}>
                     <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '5px' }}>🏢 Phòng ban</label>
                     <select
@@ -164,14 +158,12 @@ const EmployeeEditForm = ({ employeeId, onSuccess, onCancel }) => {
                         style={inputStyle}
                     >
                         <option value="">-- Chọn bậc lương --</option>
-                        {/* SỬA: Chuyển value từ chữ sang số ID */}
                         <option value="1">Fresher</option>
                         <option value="2">Junior</option>
                         <option value="3">Senior</option>
                     </select>
                 </div>
 
-                {/* Cột 2: Thông tin cá nhân */}
                 <div style={{ gridColumn: '1 / -1' }}><h4 style={{ margin: '10px 0 5px', color: '#718096', borderTop: '1px dashed #e2e8f0', paddingTop: '15px' }}>Thông tin cá nhân</h4></div>
 
                 <div>

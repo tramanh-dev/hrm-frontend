@@ -9,7 +9,7 @@ window.Echo = new Echo({
     cluster: 'ap1',             
     forceTLS: true,
     
-    // --- THÊM PHẦN NÀY ĐỂ XÁC THỰC USER ---
+
     // Đường dẫn API xác thực của Laravel (thường là /api/broadcasting/auth)
     authEndpoint: 'https://hrm-backend-iybp.onrender.com/api/broadcasting/auth', 
     auth: {

@@ -34,7 +34,7 @@ function PayrollManagement() {
     };
 
     const handleConfirmSalary = async (item, index) => {
-        // LƯU Ý: net_salary từ Backend mới đã trừ sẵn late_deduction rồi
+     
         const finalSalary = (item.net_salary || 0) + (item.bonus || 0) - (item.deduction || 0);
 
         try {
@@ -88,7 +88,6 @@ function PayrollManagement() {
                 </thead>
                 <tbody>
                     {drafts.map((item, index) => {
-                        // Tính toán thực nhận: net_salary từ backend đã trừ sẵn late_deduction và insurance
                         const final = (item.net_salary || 0) + (item.bonus || 0) - (item.deduction || 0);
                         const isPaid = item.status === 'paid';
 

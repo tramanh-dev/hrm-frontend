@@ -76,7 +76,6 @@ function LeaveManagement() {
         }
     };
 
-    // Helper: Hiển thị trạng thái đẹp mắt (sử dụng class CSS)
     const getStatusBadge = (status) => {
         switch (status) {
             case 'approved': return <span className="badge badge-success">✅ Đã duyệt</span>;

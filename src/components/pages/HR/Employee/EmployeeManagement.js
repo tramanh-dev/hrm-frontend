@@ -97,14 +97,12 @@ function EmployeeManagement() {
                 )}
             </div>
 
-            {/* --- CASE 1: FORM TẠO MỚI --- */}
             {viewMode === 'create' && (
                 <div className="card form-container">
                     <EmployeeCreateForm onSuccess={handleBackToList} onCancel={handleBackToList} />
                 </div>
             )}
 
-            {/* --- CASE 2: FORM SỬA --- */}
             {viewMode === 'edit' && (
                 <div className="card form-container">
                     <EmployeeEditForm
@@ -115,7 +113,6 @@ function EmployeeManagement() {
                 </div>
             )}
 
-            {/* --- CASE 3: XEM CHI TIẾT  --- */}
             {viewMode === 'detail' && (
                 <div className="card form-container">
                     <EmployeeDetail
@@ -125,7 +122,6 @@ function EmployeeManagement() {
                 </div>
             )}
 
-            {/* --- CASE 4: DANH SÁCH --- */}
             {viewMode === 'list' && (
                 <div className="table-content-area">
                     <div style={{ marginBottom: '20px' }}>

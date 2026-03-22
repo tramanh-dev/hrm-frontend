@@ -7,7 +7,7 @@ const DepartmentManagement = () => {
 
     // State cho Form Modal
     const [showForm, setShowForm] = useState(false);
-    const [editingId, setEditingId] = useState(null); // Nếu null là Thêm, có ID là Sửa
+    const [editingId, setEditingId] = useState(null); 
     const [formData, setFormData] = useState({ name: '', description: '' });
 
     // 1. Lấy danh sách

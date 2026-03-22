@@ -99,7 +99,6 @@ const DetailModal = ({
                             <strong>Hạn:</strong> {isTask ? selectedItem.due_date : (selectedItem.start_date + ' -> ' + selectedItem.end_date)}
                         </p>
 
-                        {/* --- NÚT BÁO CÁO ĐÃ QUAY TRỞ LẠI --- */}
                         {isTask && selectedItem.status !== 2 && !isExpired && (
                             <button
                                 onClick={() => setIsReporting(true)}

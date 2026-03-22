@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const FaceCheckIn = () => {
     const webcamRef = useRef(null);
-    const canvasRef = useRef(null); // Để vẽ khung xanh lên mặt
+    const canvasRef = useRef(null); 
     const [modelsLoaded, setModelsLoaded] = useState(false);
     const [locationStatus, setLocationStatus] = useState("Đang kiểm tra vị trí...");
     const [isInside, setIsInside] = useState(false);

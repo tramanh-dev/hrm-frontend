@@ -80,7 +80,6 @@ function LeaveForm({ onBack }) {
 
     return (
         <div style={containerStyle}>
-            {/* CHẾ ĐỘ 1: TẠO ĐƠN MỚI */}
             {viewMode === 'form' && (
                 <div style={cardStyle}>
                     <button
@@ -161,7 +160,6 @@ function LeaveForm({ onBack }) {
                 </div>
             )}
 
-            {/* CHẾ ĐỘ 2: LỊCH SỬ ĐƠN NGHỈ */}
             {viewMode === 'history' && (
                 <div style={cardStyle}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>

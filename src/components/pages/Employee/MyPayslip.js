@@ -147,7 +147,6 @@ function MyPayslip() {
     );
 }
 
-// ... (Giữ nguyên các biến Styles phía dưới của bạn)
 const paperStyle = { background: '#fff', padding: '40px', border: '1px solid #ddd', marginBottom: '30px', pageBreakAfter: 'always', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' };
 const headerStyle = { textAlign: 'center', marginBottom: '25px', borderBottom: '2px solid #3182ce', paddingBottom: '10px' };
 const infoGrid = { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '20px', fontSize: '15px' };

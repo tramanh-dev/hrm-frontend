@@ -58,7 +58,6 @@ function EmployeeCreateForm({ onSuccess, onCancel }) {
                 setDepartments(res.data);
             } catch (error) {
                 console.error("Lỗi tải danh sách phòng ban:", error.response);
-                // Vẫn cho tạo NV, nhưng cảnh báo lỗi tải P.Ban
                 alert("Không tải được danh sách Phòng ban. Vui lòng kiểm tra kết nối API.");
             }
         };
@@ -112,7 +111,6 @@ function EmployeeCreateForm({ onSuccess, onCancel }) {
         return null;
     };
 
-    // Hàm tạo input style động (cho cả input và select)
     const getFieldStyle = (fieldName) => ({
         ...(fieldName === 'role' || fieldName === 'department_id' ? style.select : style.input),
         ...(serverErrors[fieldName] ? style.inputError : {})
