@@ -10,11 +10,10 @@ window.Echo = new Echo({
     forceTLS: true,
     
 
-    // Đường dẫn API xác thực của Laravel (thường là /api/broadcasting/auth)
+    // Đường dẫn API xác thực của Laravel 
     authEndpoint: 'https://hrm-backend-iybp.onrender.com/api/broadcasting/auth', 
     auth: {
         headers: {
-            // Lấy token từ localStorage gửi kèm để Server biết ai đang login
             Authorization: `Bearer ${localStorage.getItem('auth_token')}`, 
         },
     },
