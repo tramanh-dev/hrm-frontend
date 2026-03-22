@@ -204,7 +204,7 @@ function EmployeeDashboard({ onLogout, user, onUpdateUser }) {
     const fetchComments = async (taskId) => {
         const token = localStorage.getItem('auth_token');
         try {
-            const res = await axios.get(`http://hrm-backend-iybp.onrender.com/api/tasks/${taskId}/comments`, { headers: { Authorization: `Bearer ${token}` } });
+            const res = await axios.get(`https://hrm-backend-iybp.onrender.com/api/tasks/${taskId}/comments`, { headers: { Authorization: `Bearer ${token}` } });
             setComments(res.data);
         } catch (error) { console.error(error); }
     };
@@ -213,7 +213,7 @@ function EmployeeDashboard({ onLogout, user, onUpdateUser }) {
         if (!newComment.trim()) return;
         const token = localStorage.getItem('auth_token');
         try {
-            const res = await axios.post(`http://hrm-backend-iybp.onrender.com/api/tasks/${taskId}/comments`, { content: newComment }, { headers: { Authorization: `Bearer ${token}` } });
+            const res = await axios.post(`https://hrm-backend-iybp.onrender.com/api/tasks/${taskId}/comments`, { content: newComment }, { headers: { Authorization: `Bearer ${token}` } });
             setComments([...comments, { ...res.data, user: { name: user.name } }]);
             setNewComment('');
         } catch (error) { alert("Lỗi gửi tin nhắn"); }
@@ -279,7 +279,7 @@ function EmployeeDashboard({ onLogout, user, onUpdateUser }) {
                     </div>
                 )}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }} onClick={() => setCurrentView('profile')}>
-                    <img src={user?.avatar ? `http://hrm-backend-iybp.onrender.com/storage/${user.avatar}` : null} alt="User" style={{ width: '35px', height: '35px', borderRadius: '50%', objectFit: 'cover' }} />
+                    <img src={user?.avatar ? `https://hrm-backend-iybp.onrender.com/storage/${user.avatar}` : null} alt="User" style={{ width: '35px', height: '35px', borderRadius: '50%', objectFit: 'cover' }} />
                     <span style={{ fontWeight: '600' }}>{user?.name}</span>
                 </div>
             </div>

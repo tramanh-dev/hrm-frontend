@@ -32,7 +32,7 @@ const ReportForm = ({ task, onSuccess, onCancel }) => {
         if (file) formData.append('file', file);
 
         try {
-            await axios.post(`http://hrm-backend-iybp.onrender.com/api/tasks/${task.id}/report`,
+            await axios.post(`https://hrm-backend-iybp.onrender.com/api/tasks/${task.id}/report`,
                 formData,
                 { headers: { Authorization: `Bearer ${token}` }}
             );

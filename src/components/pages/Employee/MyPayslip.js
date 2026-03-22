@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useReactToPrint } from 'react-to-print';
 
-const BASE_URL = 'http://hrm-backend-iybp.onrender.com';
+const BASE_URL = 'https://hrm-backend-iybp.onrender.com';
 
 function MyPayslip() {
     const [payslips, setPayslips] = useState([]);

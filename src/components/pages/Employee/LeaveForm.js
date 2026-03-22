@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const BASE_URL = 'http://hrm-backend-iybp.onrender.com';
+const BASE_URL = 'https://hrm-backend-iybp.onrender.com';
 
 // --- STYLES ---
 const containerStyle = { maxWidth: '100%', margin: '0' };

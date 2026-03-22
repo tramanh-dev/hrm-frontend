@@ -22,10 +22,10 @@ function EmployeeDetail({ employeeId, onBack, defaultAssigneeId }) {
             setLoading(true);
 
             const [resTasks, resDetail] = await Promise.all([
-                axios.get(`http://hrm-backend-iybp.onrender.com/api/employees/${employeeId}/tasks`, {
+                axios.get(`https://hrm-backend-iybp.onrender.com/api/employees/${employeeId}/tasks`, {
                     headers: { Authorization: `Bearer ${token}` }
                 }),
-                axios.get(`http://hrm-backend-iybp.onrender.com/api/employees/${employeeId}`, {
+                axios.get(`https://hrm-backend-iybp.onrender.com/api/employees/${employeeId}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 })
             ]);

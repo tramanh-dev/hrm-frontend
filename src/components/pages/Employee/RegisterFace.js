@@ -43,7 +43,7 @@ const RegisterFace = () => {
             
             try {
                 const token = localStorage.getItem('auth_token'); 
-                const response = await axios.post('http://hrm-backend-iybp.onrender.com/api/attendance/register-face', 
+                const response = await axios.post('https://hrm-backend-iybp.onrender.com/api/attendance/register-face', 
                     { face_data: faceData },
                     { headers: { Authorization: `Bearer ${token}` } }
                 );

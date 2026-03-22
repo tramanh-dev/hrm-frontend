@@ -25,7 +25,7 @@ function CreateTask({ defaultAssigneeId, onSuccess }) {
             if (!token) return;
 
             try {
-                const response = await axios.get('http://hrm-backend-iybp.onrender.com/api/employees', {
+                const response = await axios.get('https://hrm-backend-iybp.onrender.com/api/employees', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 const employeeList = response.data;
@@ -71,7 +71,7 @@ function CreateTask({ defaultAssigneeId, onSuccess }) {
         }
 
         try {
-            await axios.post('http://hrm-backend-iybp.onrender.com/api/tasks', formData, {
+            await axios.post('https://hrm-backend-iybp.onrender.com/api/tasks', formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data' 

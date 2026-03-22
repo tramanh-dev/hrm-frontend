@@ -19,7 +19,7 @@ import Timesheet from '../Employee/Timesheet';
 import MyPayslip from '../Employee/MyPayslip';
 import Profile from '../Employee/Profile';
 
-const BASE_URL = 'http://hrm-backend-iybp.onrender.com';
+const BASE_URL = 'https://hrm-backend-iybp.onrender.com';
 
 function HRDashboard({ user, onLogout, onUpdateUser }) {
     const [currentTab, setCurrentTab] = useState('dashboard');

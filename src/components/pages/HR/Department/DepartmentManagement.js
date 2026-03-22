@@ -15,7 +15,7 @@ const DepartmentManagement = () => {
         const token = localStorage.getItem('auth_token');
         try {
             setLoading(true);
-            const res = await axios.get('http://hrm-backend-iybp.onrender.com/api/departments', {
+            const res = await axios.get('https://hrm-backend-iybp.onrender.com/api/departments', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setDepartments(res.data);
@@ -48,12 +48,12 @@ const DepartmentManagement = () => {
         const token = localStorage.getItem('auth_token');
         try {
             if (editingId) {
-                await axios.put(`http://hrm-backend-iybp.onrender.com/api/departments/${editingId}`, formData, {
+                await axios.put(`https://hrm-backend-iybp.onrender.com/api/departments/${editingId}`, formData, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 alert("Cập nhật thành công!");
             } else {
-                await axios.post('http://hrm-backend-iybp.onrender.com/api/departments', formData, {
+                await axios.post('https://hrm-backend-iybp.onrender.com/api/departments', formData, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 alert("Thêm mới thành công!");
@@ -72,7 +72,7 @@ const DepartmentManagement = () => {
 
         const token = localStorage.getItem('auth_token');
         try {
-            await axios.delete(`http://hrm-backend-iybp.onrender.com/api/departments/${id}`, {
+            await axios.delete(`https://hrm-backend-iybp.onrender.com/api/departments/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             alert("Đã xóa thành công!");

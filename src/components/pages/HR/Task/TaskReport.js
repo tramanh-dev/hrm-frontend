@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TaskReport = ({ task, onClose }) => {
-    const fileUrl = task.report_file_path ? `http://hrm-backend-iybp.onrender.com/storage/${task.report_file_path}` : null;
+    const fileUrl = task.report_file_path ? `https://hrm-backend-iybp.onrender.com/storage/${task.report_file_path}` : null;
 
 
     const modalStyle = {

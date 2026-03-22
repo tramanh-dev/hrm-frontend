@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import * as faceapi from 'face-api.js'; 
 
-const BASE_URL = 'http://hrm-backend-iybp.onrender.com';
+const BASE_URL = 'https://hrm-backend-iybp.onrender.com';
 
 function Timesheet({ onBack }) {
     const [data, setData] = useState(null);
